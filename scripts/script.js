@@ -52,16 +52,38 @@ function filtroRangoEdad(grupo, minimo, maximo) {
 
 
 function traspasoLoro() {
-    let indexLoro
+    let indexLoro;
     for (mascota of mascotas) {
         if (mascota.especie == "loro") {
+            mascotasPropias.push(mascota);
             indexLoro = mascotas.indexOf(mascota);
+            console.log(mascota);
+        }
+    }
+    mascotas.splice(indexLoro, 1);
+}
+
+function obtenerMascota(nombre) {
+    for (mascota of mascotas) {
+        if (mascota.nombre == nombre) {
             mascotasPropias.push(mascota);
         }
-        mascotas.splice(indexLoro, 1)
     }
-    console.log(mascotasPropias)
-    console.log(mascotas)
+}
+function eliminarMascota(nombre) {
+    let indexMascota;
+    for (mascota of mascotas) {
+        if (mascota.nombre == nombre) {
+            indexMascota == mascotas.indexOf(mascota);
+            mascotas.splice(indexMascota, 1)
+        }
+    }
+}
+
+function traspasoMascota(nombre) {
+    nombre = nombre;
+    obtenerMascota(nombre);
+    eliminarMascota(nombre);
 }
 
 function listaMascotas(grupo) {
@@ -76,10 +98,7 @@ function listaMascotas(grupo) {
 
 
 
-
-
 const mascotasPropias = [];
-
 
 let tengoMascota = prompt("¿Tenes mascota? si/no").toLowerCase();
 let mascotaUsuario
@@ -108,13 +127,8 @@ if (mascotaUsuario != undefined) {
 
 //Parte de adopción
 let mascotasFinal;
-
-
-
-
 let preguntaAdoptar = prompt("¿Queres adoptar uno? si/no");
-let condicion = 0;
-if ((preguntaAdoptar != "no") && (condicion != 1)) {
+if (preguntaAdoptar != "no") {
     //Decide adoptar
     let numero = 0;
     let elegiEspecie;
@@ -126,16 +140,12 @@ if ((preguntaAdoptar != "no") && (condicion != 1)) {
         numero = especieSeleccionada.length;
         seleccion = especieSeleccionada;
     }
-    console.log(seleccion);
-
     let selectSexo = prompt("elegí el sexo del " + elegiEspecie + " ('m' para macho/ 'h' para hembra/ 'no' para saltear)");
     if (selectSexo != "no") {
         const sexoSeleccionado = filtroSexo(seleccion, selectSexo);
-        alert("Tenemos " + sexoSeleccionado.length + " " + elegiEspecie + " del sexo seleccionado")
+        alert("Tenemos " + sexoSeleccionado.length + " " + elegiEspecie + " del sexo seleccionado");
         seleccion = sexoSeleccionado;
     }
-    console.log(seleccion)
-
     let selectEdad = prompt("¿queres definir un rango de edades? (si/no)")
     if (selectEdad != "no") {
         let selectEdadMinima = Number(prompt("elegí la edad mínima"))
@@ -144,18 +154,15 @@ if ((preguntaAdoptar != "no") && (condicion != 1)) {
         alert("Entre " + selectEdadMinima + " y " + selectEdadMaxima + " años tenemos " + edadSeleccionada.length)
         seleccion = edadSeleccionada;
     }
-    console.log(seleccion);
-
     if (seleccion.length != 0) {
         let muestraMascotas = listaMascotas(seleccion);
         alert(muestraMascotas);
-
-
+        let nombre = prompt("Elegi el nombre de la mascota que queres:")
+        traspasoMascota(nombre)
     } else {
         alert("Lamentablemente no tenemos animalitos con esas caracteristicas \nIgual te llevas el Loro");
         traspasoLoro();
     }
-
 } else {
     alert("Igual te llevas el Loro");
     traspasoLoro();
