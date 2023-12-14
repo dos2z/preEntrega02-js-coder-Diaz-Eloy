@@ -22,7 +22,7 @@ mascotas.push(mascota_12 = new mascota("Perro", "Rufo", "M", 4));
 mascotas.push(mascota_13 = new mascota("Gato", "Pepino", "M", 3));
 
 
-//------------- funciones
+//------------- funciones--------------
 
 function filtroEspecie(grupo, especie) {
     const mascotasEspecie = grupo.filter((mascota) => mascota.especie == especie);
@@ -50,14 +50,12 @@ function filtroRangoEdad(grupo, minimo, maximo) {
     return rangoEdad;
 }
 
-
 function traspasoLoro() {
     let indexLoro;
     for (mascota of mascotas) {
         if (mascota.especie == "loro") {
             mascotasPropias.push(mascota);
             indexLoro = mascotas.indexOf(mascota);
-            console.log(mascota);
         }
     }
     mascotas.splice(indexLoro, 1);
@@ -75,7 +73,7 @@ function eliminarMascota(nombre) {
     for (mascota of mascotas) {
         if (mascota.nombre == nombre) {
             indexMascota == mascotas.indexOf(mascota);
-            mascotas.splice(indexMascota, 1)
+            mascotas.splice(indexMascota, 1);
         }
     }
 }
@@ -91,7 +89,7 @@ function listaMascotas(grupo) {
     grupo.forEach(mascota => {
         lista += mascota.especie + " de " + mascota.edad + " años " + " de nombre " + mascota.nombre + ";\n"
     });
-    return lista
+    return lista;
 }
 
 //------------
@@ -101,7 +99,7 @@ function listaMascotas(grupo) {
 const mascotasPropias = [];
 
 let tengoMascota = prompt("¿Tenes mascota? si/no").toLowerCase();
-let mascotaUsuario
+let mascotaUsuario;
 
 if (tengoMascota == "si") {
     const nombre = prompt("Ingresa el nombre de tu mascota");
@@ -111,13 +109,13 @@ if (tengoMascota == "si") {
         Number(prompt("ingresa la edad de " + nombre)),
     ));
 } else {
-    alert("Bueno");
+    alert("Ya lo resolvemos");
 }
 alert("Nosotros tenemos " + mascotas.length + " animalitos en adopción");
 if (mascotaUsuario != undefined) {
     const mascotasMismaEspecie = filtroEspecie(mascotas, mascotaUsuario.especie);
     if (mascotasMismaEspecie != "") {
-        alert("de los cuales " + mascotasMismaEspecie.length + " son " + mascotaUsuario.especie)
+        alert("de los cuales " + mascotasMismaEspecie.length + " son " + mascotaUsuario.especie);
     } else {
         alert("No tenemos " + mascotaUsuario.especie);
     }
@@ -127,38 +125,37 @@ if (mascotaUsuario != undefined) {
 
 //Parte de adopción
 let mascotasFinal;
-let preguntaAdoptar = prompt("¿Queres adoptar uno? si/no");
+let preguntaAdoptar = prompt("¿Queres adoptar uno? si/no").toLowerCase();
 if (preguntaAdoptar != "no") {
-    //Decide adoptar
     let numero = 0;
     let elegiEspecie;
     let seleccion;
     while (numero == 0) {
-        elegiEspecie = prompt("elegí la especie: (Gato, Perro, Loro, Hamster").toLowerCase()
-        const especieSeleccionada = filtroEspecie(mascotas, elegiEspecie)
-        alert("Tenemos " + especieSeleccionada.length + " animales de la especie " + elegiEspecie)
+        elegiEspecie = prompt("elegí la especie: (Gato, Perro, Loro, Hamster").toLowerCase();
+        const especieSeleccionada = filtroEspecie(mascotas, elegiEspecie);
+        alert("Tenemos " + especieSeleccionada.length + " animales de la especie " + elegiEspecie);
         numero = especieSeleccionada.length;
         seleccion = especieSeleccionada;
     }
-    let selectSexo = prompt("elegí el sexo del " + elegiEspecie + " ('m' para macho/ 'h' para hembra/ 'no' para saltear)");
+    let selectSexo = prompt("elegí el sexo del " + elegiEspecie + " ('m' para macho/ 'h' para hembra/ 'no' para saltear)").toLowerCase();
     if (selectSexo != "no") {
         const sexoSeleccionado = filtroSexo(seleccion, selectSexo);
         alert("Tenemos " + sexoSeleccionado.length + " " + elegiEspecie + " del sexo seleccionado");
         seleccion = sexoSeleccionado;
     }
-    let selectEdad = prompt("¿queres definir un rango de edades? (si/no)")
+    let selectEdad = prompt("¿queres definir un rango de edades? (si/no)").toLowerCase();
     if (selectEdad != "no") {
-        let selectEdadMinima = Number(prompt("elegí la edad mínima"))
-        let selectEdadMaxima = Number(prompt("elegí la edad máxima"))
-        const edadSeleccionada = filtroRangoEdad(seleccion, selectEdadMinima, selectEdadMaxima)
-        alert("Entre " + selectEdadMinima + " y " + selectEdadMaxima + " años tenemos " + edadSeleccionada.length)
+        let selectEdadMinima = Number(prompt("elegí la edad mínima"));
+        let selectEdadMaxima = Number(prompt("elegí la edad máxima"));
+        const edadSeleccionada = filtroRangoEdad(seleccion, selectEdadMinima, selectEdadMaxima);
+        alert("Entre " + selectEdadMinima + " y " + selectEdadMaxima + " años tenemos " + edadSeleccionada.length);
         seleccion = edadSeleccionada;
     }
     if (seleccion.length != 0) {
         let muestraMascotas = listaMascotas(seleccion);
         alert(muestraMascotas);
-        let nombre = prompt("Elegi el nombre de la mascota que queres:")
-        traspasoMascota(nombre)
+        let nombre = prompt("Elegi el nombre de la mascota que queres:").toLowerCase();
+        traspasoMascota(nombre);
     } else {
         alert("Lamentablemente no tenemos animalitos con esas caracteristicas \nIgual te llevas el Loro");
         traspasoLoro();
